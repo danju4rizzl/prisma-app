@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -124,6 +124,20 @@ async function main() {
   });
   console.log(deleteArticleById);
   */
+
+  const allArticles = await prisma.user.findMany({
+    include: {
+      articles: {
+        where: {
+          title: {
+            contains: 'studio'
+          }
+        }
+      }
+    }
+  });
+
+  console.log(allArticles);
 }
 
 main()
